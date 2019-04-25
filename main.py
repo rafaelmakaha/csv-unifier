@@ -79,15 +79,6 @@ def is_number(row):
         return False
 
 cont = 0
-    
-# with open('teste.csv', 'w', encoding='utf-8') as csvfile:
-#     filewriter = csv.writer(
-#             csvfile, 
-#             lineterminator='\n',
-#             delimiter=',',
-#             quotechar='|', 
-#             quoting=csv.QUOTE_MINIMAL
-#         )
         
 with open(caminho, 'r', encoding='utf-8') as maquinas:
     df = pd.read_csv('nova_lista.csv')
@@ -106,32 +97,22 @@ with open(caminho, 'r', encoding='utf-8') as maquinas:
                 index = endereco.find('(')
                 index2 = endereco.find(')')
                 setor = setor + " " + endereco[index:index2+1]
-#                 print(setor)
 
             index = endereco.find('- ')
             index2 = endereco.find(' ', index+7)
             sala = endereco[index+2:index2]
             sala = sala.replace('SALA ','')
             sala = sala.replace(' (SALA','')
-#                 sala = ""
-#                 print(endereco)
-#                 print(endereco)
-#             print(sala)
-#                 print("")
-
 
         if '3000' in row:
             index = row.find('3000')
-#                 print(index)
             patrimonio = row[index:index+8]
-#                 print(patrimonio)
             if not 'MODELO:' in row:
                 modelo = ""
             else:
                 index = row.find('MODELO:')
                 index2 = row.find('-', index)
                 modelo = row[index+8:index2-1]
-#                 print(modelo)
             
             for i in range(df.shape[0]):
                 if patrimonio in df.iloc[i]['Nome']:
@@ -140,9 +121,8 @@ with open(caminho, 'r', encoding='utf-8') as maquinas:
                     df.at[i,'Setor'] = setor
                     df.at[i,'Sala'] = sala
                     print(df.iloc[i])
-                
-# df
-#     print(cont)
+
+                    
 df.to_csv('nova_lista.csv', index=False)
 
 
